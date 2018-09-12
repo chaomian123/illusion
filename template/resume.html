@@ -1,0 +1,789 @@
+<!doctype html>
+<html>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"/>
+<title>Resume - (前端)</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+<!--<link rel="stylesheet" href="reset.css">-->
+<!--<link rel="stylesheet" href="main.css">-->
+<style>
+	/********************************************
+    * 	reset from
+    * 	http://meyerweb.com/eric/tools/css/reset/
+    *******************************************/
+	html, body, div, span, applet, object, iframe,
+	h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+	a, abbr, acronym, address, big, cite, code,
+	del, dfn, em, img, ins, kbd, q, s, samp,
+	small, strike, strong, sub, sup, tt, var,
+	b, u, i, center,
+	dl, dt, dd, ol, ul, li,
+	fieldset, form, label, legend,
+	table, caption, tbody, tfoot, thead, tr, th, td,
+	article, aside, canvas, details, embed,
+	figure, figcaption, footer, header, hgroup,
+	menu, nav, output, ruby, section, summary,
+	time, mark, audio, video {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		font-size: 100%;
+		vertical-align: baseline;
+	}
+	article, aside, details, figcaption, figure,
+	footer, header, hgroup, menu, nav, section {
+		display: block;
+	}
+	body {
+		line-height: 1;
+	}
+	ol, ul {
+		list-style: none;
+	}
+	blockquote, q {
+		quotes: none;
+	}
+	blockquote:before, blockquote:after,
+	q:before, q:after {
+		content: '';
+		content: none;
+	}
+	table {
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	/* Custom reset */
+	.main-summary p,
+	#publications .item,
+	#skills .item,
+	#languages .item,
+	#references .item,
+	#interests .item{
+		margin: 0;
+	}
+	/****************
+    *		移动端
+    ****************/
+	em {
+		color: #757575;
+	}
+	p {
+		margin: 1em 0;
+	}
+	blockquote {
+		margin: 0;
+		margin-bottom: 1em;
+	}
+	strong {
+		font-weight: 700;
+		font-size: 1.1em;
+	}
+	ul {
+		margin-top: 1em;
+	}
+	div.item {
+		margin: 1em 0 1em;
+		padding-bottom: 1em;
+	}
+	div.item:last-of-type {
+		margin: 0;
+		border-bottom: none;
+		padding-bottom: 0;
+	}
+	p {
+		text-align: justify;
+	}
+	/* Headers */
+	h1, h2, h3, h4, h5, h6 {
+		font-weight: 700;
+	}
+	h1 {
+		font-size: 2rem;
+	}
+	h2,
+	h3 {
+		font-size: 1rem;
+	}
+	a {
+		color: #EB5F51;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	/* Layout */
+	body {
+		background: #f2f2f2;
+		line-height: 1.6;
+		font-size: 13px;
+		font-family: Consolas,"Courier New",Courier,FreeMono,monospace;
+	}
+	#resume {
+		padding: 1rem 0;
+		margin: 1rem auto;
+	}
+	#header {
+		padding: 0 1em;
+		margin-bottom: 1em;
+	}
+	#resume > header div {
+		display: table;
+		padding-left: 0.5em;
+	}
+	#resume > header div.middle {
+		padding-top: 1.5em;
+	}
+	header img {
+		display: block;
+		width: 10em;
+		border-radius: 0.275em;
+		float: right;
+		vertical-align: middle;
+	}
+	header .name {
+		line-height: 1;
+	}
+	header .label {
+		font-size: 1rem;
+		font-weight: 400;
+		color: #757575;
+	}
+	section:not(.section) {
+		padding: .5em 1rem;
+	}
+	section#references {
+		border-bottom:none;
+	}
+	section#basics {
+		background: inherit;
+		margin-bottom: 0;
+	}
+	section#skills {
+		padding-bottom: 0;
+	}
+	section#education,
+	section#work,
+	.main-summary section {
+		padding-bottom: 1em;
+	}
+	header::after {
+		display: table;
+		content: " ";
+		clear: both;
+	}
+	h2.section-title {
+		text-align: left;
+		font-size: 1rem;
+		font-weight: 400;
+		color: #757575;
+		padding: 1em 1rem 0;
+		margin-bottom: 0.1275em;
+	}
+	.date {
+		font-weight: 700;
+		color: #757575;
+	}
+	.position, .area, .institution {
+		font-weight: 700;
+	}
+	#interests .item, #languages .item {
+		padding: 0 1em 1em 0;
+		border-bottom: none;
+	}
+	.website::before {
+		display: inline-block;
+		font: normal normal normal 14px/1 FontAwesome;
+		font-size: inherit;
+		text-rendering: auto;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		text-decoration: none;
+		min-width: 1.25em;
+		margin-right: 0.25em;
+		text-align: center;
+		content: '\f14c';
+	}
+	#profiles, #skills, #interests, #languages {
+		display: -webkit-box;
+		display: -moz-box;
+		display: -ms-flexbox;
+		display: -webkit-flex;
+		display: flex;
+		-webkit-flex-flow: row wrap;
+		flex-flow: row wrap;
+		-webkit-justify-content: flex-start;
+		justify-content: flex-start;
+		padding-bottom: 1em;
+	}
+	#profiles, #location {
+		box-shadow: none;
+		padding: 0;
+	}
+	#profiles .item {
+		margin: 0;
+		padding: 0;
+		padding-right: 1em;
+		border-bottom: none;
+	}
+	#interests ul {
+		margin-top: 0.5em;
+	}
+	#publications .name {
+		font-style: italic;
+	}
+	.courses li, .keywords li{
+		display: inline-block;
+		background: #f0f0f0;
+		font-size: 0.9em;
+		line-height: 1;
+		color: #333;
+		padding: 0.4em 0.8em;
+		border-bottom: 1px solid #ddd;
+		border-right: 1px solid #ddd;
+		border-radius: 3px;
+	}
+	#publications .date {
+		font-weight: normal;
+		color: #000;
+	}
+	#skills .item {
+		min-width: 15em;
+		padding: 0 .5em .8em 0;
+		border-bottom: none;
+	}
+	/* Skills chart */
+	#skills .level .bar {
+		border: 1px solid #ddd;
+		display: block;
+		width: 10em;
+		height: 5px;
+		margin: 0em 0 1em 0;
+		position: relative;
+	}
+	#skills .level .bar::after {
+		position: absolute;
+		content: " ";
+		top: 0;
+		left: 0;
+		background: black;
+		height: 5px;
+	}
+	#skills .level.beginner .bar::after {
+		background: #EB5F51;
+		width: 2.5em;
+	}
+	#skills .level.intermediate .bar::after {
+		background: #ffdf1f;
+		width: 5em;
+	}
+	#skills .level.advanced .bar::after {
+		background: #59C596;
+		width: 7.5em;
+	}
+	#skills .level.master .bar::after {
+		background: #5CB85C;
+		width: 10em;
+	}
+	#references .item {
+		padding-left: 1em;
+		border-left: 5px solid #EB5F51;
+	}
+	.fa.social {
+		margin-right: 0.25em;
+		font-size: 1.1em;
+	}
+	/* Social Media Brand Colors */
+	.google-plus {
+		color: #dd4b39;
+	}
+	.tumblr {
+		color:#32506d;
+	}
+	.foursquare {
+		color:  #0072b1;
+	}
+	.facebook {
+		color: #3b5998;
+	}
+	.linkedin {
+		color: #007bb6;
+	}
+	.pinterest {
+		color: #cb2027;
+	}
+	.dribbble {
+		color: #ea4c89;
+	}
+	.instagram {
+		color: #517fa4;
+	}
+	.twitter {
+		color: #00aced;
+	}
+	.soundcloud {
+		color: #ff3a00;
+	}
+	.wordpress {
+		color: #21759b;
+	}
+	.youtube {
+		color: #bb0000;
+	}
+	.github {
+		color: #171515;
+	}
+	.stack-overflow {
+		color: #828386;
+		position: relative;
+	}
+	.flickr {
+		color: #ff0084;
+	}
+	.stack-overflow::after {
+		position: absolute;
+		left: 0;
+		content: '\f16c';
+		color: #f68a1f;
+		overflow: hidden;
+		height: 40%;
+	}
+	/******************
+    *		help class
+    ******************/
+	.fa {
+		min-width: 1.25em;
+		margin-right: 0.25em;
+		text-align: center;
+	}
+	.clear {
+		display: table;
+		clear: both;
+	}
+	/****************
+    *		平板
+    ****************/
+	@media screen and (min-width: 602px) {
+		#resume {
+			width: 550px;
+			margin: 0 auto;
+		}
+		section > header > h3 {
+			float:left;
+		}
+		section > header > .date {
+			float: right;
+			line-height: 1.3;
+		}
+	}
+	/****************
+    *		桌面端
+    ****************/
+	@media screen and (min-width: 1025px) {
+		#resume {
+			width: 650px;
+			padding: 3em;
+			margin: 3em auto;
+			background: #fff;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+		}
+		.section {
+			display: -webkit-box;
+			display: -moz-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-flex-flow: row wrap;
+			flex-flow: row wrap;
+			-webkit-justify-content: space-between;
+			justify-content: space-between;
+			margin-bottom: 1em;
+			margin-top: 1em;
+			border-bottom: 1px solid #eee;
+		}
+		.section:last-of-type {
+			border-bottom: none;
+			margin-bottom: 0;
+		}
+		section > header {
+			line-height: 1;
+			padding-bottom: 1em;
+		}
+		h2.section-title {
+			line-height: 1.1;
+			padding-top: 0;
+		}
+		section:not(.section) {
+			width: 34.5em;
+			padding: 0 1em 1em 0;
+			margin-top:0;
+			border: none;
+		}
+		section p {
+			margin: 0;
+		}
+		section#basics {
+			width: auto;
+			padding-top: 1em;
+			padding-left: 1em;
+			padding-bottom: 0;
+			border-top: 1px solid #eee;
+			border-bottom: 1px solid #eee;
+		}
+		#profiles .item{
+			padding-bottom: 1em;
+		}
+		div {
+			padding: 0;
+		}
+		#skills .item {
+			padding-left:0;
+			margin-top: 0;
+		}
+		div.item {
+			margin-top: 0;
+			border-bottom: 1px solid #eee;
+		}
+	}
+
+    .i-cant-focus-really {
+        filter: blur(2px);
+    }
+
+</style>
+<body>
+<div id="resume">
+	<header id="header">
+	<div>
+		<h1 class="name">请联系我</h1>
+		<h3 class="label">Web前端</h3>
+	</div>
+	</header>
+	<section id="basics">
+	<div id="location">
+		<span class="fa fa-map-marker"></span>
+		<span class="address i-cant-focus-really">
+秦淮区xxx街,
+		</span>
+		<span class="postalCode">
+210000,
+		</span>
+		<span class="city">
+南京
+		</span>
+
+		<span class="region">
+江苏
+		</span>
+	</div>
+	<div id="contact">
+		<div class="website">
+			<a href="https://github.com/chaomian123">https://github.com/chaomian123</a>
+		</div>
+		<div class="email">
+			<span class="fa fa-envelope"></span>
+			<!-- <a href="#"> -->
+                <span class="__cf_email__" data-cfemail="">liyutuliyu@foxmail.com</span>
+            <!-- </a> -->
+		</div>
+		<div class="phone">
+			<span class="fa fa-phone-square"></span>
+1xxxxxxxx
+		</div>
+	</div>
+	<div id="profiles">
+		<div class="item">
+
+		</div>
+		<div class="item">
+
+		</div>
+	</div>
+	</section>
+	<!--<section class="section main-summary">-->
+	<!--<h2 class='section-title'>关于我</h2>-->
+	<!--<section>-->
+	<!--<p>-->
+		<!--balabala-->
+	<!--</p>-->
+	<!--</section>-->
+	<!--</section>-->
+
+	<section class="section">
+		<h2 class='section-title'>教育经历</h2>
+		<section id="education">
+			<header>
+				<h3 class="institution">
+					南京信息职业技术学院
+				</h3>
+				<div class="date">
+		<span class="startDate">
+                2007
+		</span>
+					<span class="endDate">
+                - 2010
+		</span>
+				</div>
+			</header>
+			<div class="item">
+				<div class="studyType">
+					电子信息工程
+				</div>
+				<!--<div class="area">-->
+				<!--Information Technology-->
+				<!--</div>-->
+				<!--<div>-->
+				<!--<span class="fa fa-graduation-cap"></span>-->
+				<!--<span class='gpa'> GPA: 4.0</span>-->
+				<!--</div>-->
+				<!--<ul class="courses">-->
+				<!--<li>DB1101 - Basic SQL</li>-->
+				<!--<li>CS2011 - Java Introduction</li>-->
+				<!--</ul>-->
+			</div>
+		</section>
+	</section>
+
+	<section class="section">
+	<h2 class='section-title'>工作经历</h2>
+	<section id="work">
+	<header>
+	<h3 class="name">
+            江苏电信客服中心
+	</h3>
+	<div class="date">
+		<span class="startDate">
+                2010 9月
+		</span>
+		<span class="endDate">
+                - 2014 7月
+		</span>
+	</div>
+	</header>
+	<div class="item">
+		<div class="position">
+            客服/内训师
+		</div>
+
+		<div class="summary">
+			<p>
+				客服专席，接受处理用户投诉和业务咨询
+			</p>
+			<p>
+				内部竞聘转岗内训师，工作内容培训新学员，组织培训与考试，传达新业务知识
+			</p>
+		</div>
+
+	</div>
+
+    <header>
+        	<h3 class="name">
+                        avarto system
+        	</h3>
+        	<div class="date">
+        		<span class="startDate">
+                        2014 8月
+        		</span>
+        		<span class="endDate">
+                        - 2015 8月
+        		</span>
+        	</div>
+	</header>
+                <div class="item">
+            		<div class="position">
+                            helpdesk
+            		</div>
+
+            		<div class="summary">
+            			<p>
+            				为本司CRM产品(Web端)的客户提供在线技术支持
+            			</p>
+						<p>
+							在所属的运维部门完成领导指派的Web网页开发工作
+						</p>
+            		</div>
+            		<ul class="highlights">
+            			<li><span><strong>前端工作内容:</strong></span></li>
+            			<li>按照PSD设计图，还原客户网站活动静态网页(一汽大众/广汽丰田/P&G等)</li>
+            			<li>与后端同事配合，调试内部CRM系统的CSS</li>
+            		</ul>
+            	</div>
+	</section>
+	</section>
+	<section class="section">
+	<h2 class='section-title'>个人项目</h2>
+	<section id="volunteer">
+	<header>
+	<h3 class="company">
+	前端项目
+	</h3>
+
+		</header>
+		<div class="item">
+			<div class="position">
+music-player
+			</div>
+			<div class="website">
+				<a href="https://github.com/chaomian123/music-player">https://github.com/chaomian123/music-player</a>
+			</div>
+			<div class="summary">
+				<p>
+					Electron项目 多平台可用的HTML5音乐播放器
+				</p>
+			</div>
+			<ul class="highlights">
+				<li>一个简洁漂亮且功能完善多平台可用的音乐播放器</li>
+				<li>可以读取你存储在音乐文件夹里歌曲和歌曲封面图</li>
+				<li>JavaScript原生实现，没有使用依赖库</li>
+			</ul>
+		</div>
+		<div class="item">
+			<div class="position">
+				Hacker News
+			</div>
+			<div class="website">
+				<a href="https://github.com/chaomian123/hacknews">https://github.com/chaomian123/hacknews</a>
+			</div>
+			<div class="summary">
+				<p>
+					React项目 单页应用
+				</p>
+			</div>
+			<ul class="highlights">
+				<li>通过API获取Hacker News的新闻实时数据</li>
+				<li>关键字搜索排序，互动按钮标记不感兴趣维持信息流整洁</li>
+				<li>定制适合自己的新闻阅读页面</li>
+
+			</ul>
+		</div>
+		<div class="item">
+			<div class="position">
+				micro-blog
+			</div>
+			<div class="website">
+				<a href="http://chaomianblog.bceapp.com/">micro-blog</a>
+			</div>
+			<div class="summary">
+				<p>
+					线上项目, 后端使用Node.js和Express框架, 原生JavaScript实现前后端交互, CSS3及HTML5实现前端动画效果
+				</p>
+			</div>
+			<ul class="highlights">
+				<li>分享所思所想</li>
+				<li>没有使用依赖库</li>
+			</ul>
+		</div>
+		</section>
+		</section>
+
+		<section class="section">
+		<h2 class='section-title'>前端技能</h2>
+		<section id="skills">
+		<div class="item">
+			<div class="name">
+HTML/CSS
+			</div>
+
+			<ul class="keywords">
+				<li>熟练掌握HTML和CSS</li>
+				<li>能够实现较复杂的布局与动画</li>
+				<li>熟悉CSS3新特性</li>
+				<li>熟练使用HTML5语义化标签</li>
+				<li>熟悉W3C规范标准</li>
+				<!--<li>能够独立解决大部分浏览器兼容性问题</li>-->
+			</ul>
+		</div>
+		<div class="item">
+			<div class="name">
+ EMCAScript(JavaScript)
+			</div>
+
+			<ul class="keywords">
+				<li>熟练掌握原生JavaScript并运用在项目中</li>
+				<li>熟悉ES6新标准，如Class，箭头函数，map等并运用在项目中</li>
+				<li>严格遵循代码编写规范，具备良好的代码可读性和可维护性</li>
+			</ul>
+		</div>
+
+			<div class="item">
+			<div class="name">
+				DOM / BOM
+			</div>
+
+			<ul class="keywords">
+				<li>熟悉DOM / BOM API，事件绑定，事件委托的原理及应用</li>
+				<li>熟练掌握通过原生JavaScript进行DOM / BOM复杂操作</li>
+			</ul>
+		</div>
+			<div class="item">
+				<div class="name">
+					React / jQuery / Lodash
+				</div>
+
+				<ul class="keywords">
+					<li>能够使用React进行组件开发，熟悉声明式编程</li>
+					<li>熟悉jQuery常用的API，实现对页面元素的复杂操作</li>
+					<li>熟悉Lodash常用的API，实现对数据对象的高效处理</li>
+				</ul>
+			</div>
+			<div class="item">
+				<div class="name">
+					Electron / Nodejs / Express / AJAX
+				</div>
+
+				<ul class="keywords">
+					<li>熟悉AJAX的使用封装，熟悉前后端数据交互过程和跨域问题解决方案</li>
+					<li>能够使用Node.js 与 Express 框架配合进行后端开发</li>
+					<li>熟悉JavaScript异步编程</li>
+					<li>能够使用Electron进行桌面应用的开发</li>
+
+				</ul>
+			</div>
+			<div class="item">
+				<div class="name">
+					数据可视化 / ECharts / 爬虫
+				</div>
+
+				<ul class="keywords">
+					<li>能够使用cheerio 和 request框架，Puppeteer无头浏览器，爬取网站数据</li>
+					<li>能够使用ECharts等常见数据可视化库，实现复杂图表</li>
+				</ul>
+			</div>
+			<div class="item">
+				<div class="name">
+					数据结构 / 算法
+				</div>
+
+				<ul class="keywords">
+					<li>熟悉常见数据结构(栈，队列，链表，哈希表)</li>
+					<li>理解时间复杂度，能够实现常见数据结构</li>
+				</ul>
+			</div>
+		</section>
+		</section>
+		<section class="section">
+		<h2 class='section-title'>英语能力</h2>
+		<section id="languages">
+		<div class="item">
+			<div class="language">
+				能够通过StackOverflow等英文网站解决技术问题
+			</div>
+			<div class="language">
+				能够阅读原版英文书籍学习技术
+			</div>
+			<div class="language">
+				无障碍阅读英文文档
+			</div>
+
+			<div class="language">
+				读写工作英文邮件
+			</div>
+			<div class="fluency">
+				<em></em>
+			</div>
+		</div>
+		</section>
+		</section>
+
+	</div>
+	</body>
+	</html>

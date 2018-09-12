@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>博客详情</title>
+        <link rel="stylesheet" href="/css/blog.css">
+        <style>
+            .back-wrapper {
+                text-align: center;
+            }
+            .back-wrapper svg {
+                width: 3rem;
+                height: auto;
+                margin: 0 2rem;
+                cursor: pointer;
+                overflow: visible;
+            }
+            .back-wrapper svg polygon, div svg path {
+                transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+            }
+            .back-wrapper svg:hover polygon, div svg:hover path {
+                transition: all 1s cubic-bezier(0.2, 1, 0.3, 1);
+                fill: #d02e77;
+            }
+            .back-wrapper svg:hover .arrow {
+                animation: arrow-anim 2.5s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+            }
+            .back-wrapper svg:hover .arrow-fixed {
+                animation: arrow-fixed-anim 2.5s cubic-bezier(0.2, 1, 0.3, 1) infinite;
+            }
+
+            @keyframes arrow-anim {
+                0% {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+                5% {
+                    transform: translateX(-0.1rem);
+                }
+                100% {
+                    transform: translateX(1rem);
+                    opacity: 0;
+                }
+            }
+            @keyframes arrow-fixed-anim {
+                5% {
+                    opacity: 0;
+                }
+                20% {
+                    opacity: 0.4;
+                }
+                100% {
+                    opacity: 1;
+                }
+            }
+            .comment-cell {
+                background: none;
+                border: solid 1px #474544;
+                color: #474544;
+                cursor: pointer;
+                display: inline-block;
+                font-family: 'Helvetica', Arial, sans-serif;
+                font-size: 0.875em;
+                font-weight: bold;
+                outline: none;
+                vertical-align: top;
+                width: 100%;
+                line-height: 150%;
+                max-height: 100px;
+                overflow-y: auto;
+
+            }
+            .comments {
+                display: grid;
+                grid-template-columns: 50% 50%;
+                grid-template-rows: 50% 50%;
+            }
+            #prev-btn {
+                display: block;
+                width: 3rem;
+                margin: 0 auto;
+
+            }
+            .page-content p {
+                padding: 2rem 0;
+                line-height: 170%;
+                text-indent: 2rem;
+            }
+            .page-content img {
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body data-id="{{blog_id}}" class="article">
+
+        <div class="gua-blogs">
+            </div>
+            <div class="comments"></div>
+            <div class="back-wrapper">
+                <a href="/" id="prev-btn">
+                <svg width="18px" height="17px" viewBox="0 0 18 17" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                        <g id="prev" transform="translate(8.500000, 8.500000) scale(-1, 1) translate(-8.500000, -8.500000)">
+                            <polygon class="arrow" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                            <polygon class="arrow-fixed" points="16.3746667 8.33860465 7.76133333 15.3067621 6.904 14.3175671 14.2906667 8.34246869 6.908 2.42790698 7.76 1.43613596"></polygon>
+                            <path d="M-1.48029737e-15,0.56157424 L-1.48029737e-15,16.1929159 L9.708,8.33860465 L-2.66453526e-15,0.56157424 L-1.48029737e-15,0.56157424 Z M1.33333333,3.30246869 L7.62533333,8.34246869 L1.33333333,13.4327013 L1.33333333,3.30246869 L1.33333333,3.30246869 Z"></path>
+                        </g>
+                </svg>
+                </a>
+            </div>
+            <script>
+            const e = sel => document.querySelector(sel)
+            const ajax = function(request) {
+
+                let r = new XMLHttpRequest()
+                r.open(request.method, request.url, true)
+                if (request.contentType !== undefined) {
+                    r.setRequestHeader('Content-Type', request.contentType)
+                }
+                r.onreadystatechange = function() {
+                    if (r.readyState === 4) {
+                        request.callback(r.response)
+                    }
+                }
+                if (request.method === 'GET') {
+                    r.send()
+                } else {
+                    r.send(request.data)
+                }
+            }
+            const insertCSS = () => {
+                let t = `
+                        <style>
+                            body {
+                                color: #222;
+                            }
+                            .article {
+                                max-width: 900px;
+                                margin: 0 auto;
+                                background: #fff;
+                                padding: 20px 35px;
+                                /*text-align: center;*/
+                            }
+                            .comment-cell {
+                                padding: 0.75em 0;
+                                overflow: auto;
+                                text-align: left;
+                                margin: 0.625em 0;
+                                background: #fff;
+                            }
+                            .comment-cell span:first-child {
+                                margin-left: 0.5em;
+                                color: #a1a1a1;
+                            }
+                            .comment-cell time {
+                                margin-left: 0.5em;
+                                color: #a1a1a1;
+                            }
+                            .comment-cell span:last-child {
+                                display: block;
+                                margin-left: 0.35em;
+                                margin-top: 1em;
+                            }
+                            .page-title {
+                                position: relative;
+                                margin-bottom: 0.75rem;
+                                text-transform: uppercase;
+
+                            }
+
+                        </style>
+                    `
+                let header = document.querySelector('head')
+                header.insertAdjacentHTML('beforeend', t)
+            }
+            const log = console.log.bind(console)
+            const insertCommentsAll = (response) => {
+                let html = ''
+                let comments= JSON.parse(response)
+                for (let i of comments) {
+                    let t = templateComment(i)
+                    html += t
+                }
+                let div = document.querySelector('.comments')
+                div.innerHTML = html
+            }
+
+            const templateComment = function (comment) {
+                let id = comment.id
+                let content = comment.content
+                let author = comment.author
+                let d = new Date(comment.created_time * 1000)
+                let time = d.toLocaleString()
+                let t = `
+                        <div class="comment-cell subline" data-id="${id}">
+                               <span>${author}</span> 评论于<time>${time}</time>
+                               <span>${content}</span>
+                        </div>
+                        `
+                return t
+            }
+            const insertPageDetail = (response) => {
+                let b = JSON.parse(response)
+                let title = b.title
+                let content = b.content
+                let author = b.author
+                let d = new Date(b.created_time * 1000)
+                let time = d.toLocaleString()
+
+                let t = `
+                        <div>
+                            <h2  class="page-title">${title}</h2>
+                            <div class="subline">
+                                <span>${author}</span> 发布于 <time>${time}</time>
+                            </div>
+                            <div class="page-content">
+                            <p>${content}</p>
+
+                            </div>
+                        </div>
+                `
+                let container = e('.gua-blogs')
+                container.insertAdjacentHTML('beforeend', t)
+
+            }
+
+            // const inserTitle = (response) => {
+            //     let b = JSON.parse(response)
+            //     let title = b.title
+            //     document.querySelectorAll('h2')[0].textContent = title
+            // }
+            //
+            // const insertContent = (response) => {
+            //     let b = JSON.parse(response)
+            //     let content = b.content
+            //     document.querySelectorAll('h1')[0].textContent = content
+            // }
+            const commentOne = (id) => {
+                let request = {
+                    method: 'GET',
+                    url: '/api/comment/' + id,
+                    contentType: 'application/json',
+                    callback: (response) => {
+                        insertCommentsAll(response)
+
+                    }
+                }
+                ajax(request)
+            }
+
+            const blogOne = (id) => {
+                let request = {
+                    method: 'GET',
+                    url: '/api/blog/' + id,
+                    contentType: 'application/json',
+                    callback: (response) => {
+                        insertPageDetail(response)
+                    }
+                }
+                ajax(request)
+            }
+
+
+
+            const blogAll = function() {
+                let request = {
+                    method: 'GET',
+                    url: '/api/blog/all',
+                    contentType: 'application/json',
+                    callback: function(response) {
+                        console.log('响应', response)
+                        let res = JSON.parse(response)
+                        if (res.success) {
+                            // window.location.href = '/'
+                        } else {
+                            // alert('登录失败')
+                        }
+                    }
+                }
+                ajax(request)
+            }
+
+            const blogNew = function() {
+                let form = {
+                    title: "测试标题",
+                    author: "gua",
+                    content: "测试内容",
+                }
+                let data = JSON.stringify(form)
+                let request = {
+                    method: 'POST',
+                    url: '/api/blog/add',
+                    data: data,
+                    contentType: 'application/json',
+                    callback: function(response) {
+                        console.log('响应', response)
+                        let res = JSON.parse(response)
+                        if (res.success) {
+                            // window.location.href = '/'
+                        } else {
+                            // alert('登录失败')
+                        }
+                    }
+                }
+                ajax(request)
+            }
+
+            const bindEventGoPrev = () => {
+                let a = e('#prev-btn')
+                a.addEventListener('click', (event) => {
+
+                    a.href = window.history.go(-1)
+                    // window.location = window.history.go(-1)
+                    event.preventDefault()
+                })
+            }
+
+            const __main = () => {
+                let id = document.body.dataset.id
+                insertCSS()
+                blogOne(id)
+                commentOne(id)
+                bindEventGoPrev()
+            }
+            __main()
+        </script>
+    </body>
+</html>
