@@ -17,7 +17,7 @@ const add = {
         // 验证密码
 
         let r
-        if (form.mima === '1234') {
+        if (form.mima === '') {
             let b = blog.new(form)
             r = JSON.stringify(b)
         } else {

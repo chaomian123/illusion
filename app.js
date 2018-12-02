@@ -38,9 +38,9 @@ const routeBlog = require('./route/blog')
 registerRoutes(app, routeBlog.routes)
 
 // 导入 route/comment 的所有路由数据
-const routeComment = require('./route/comment')
-registerRoutes(app, routeComment.routes)
-
+// const routeComment = require('./route/comment')
+// registerRoutes(app, routeComment.routes)
+//
 // const routes = [
 //     routeBlog,
 //     routeIndex,
